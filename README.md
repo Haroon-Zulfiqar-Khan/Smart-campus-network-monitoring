@@ -1,101 +1,348 @@
-# CampusNet — Smart Campus Wi-Fi Monitoring
+# Smart Campus Wi-Fi Monitoring & Network Health Dashboard
 
-Integrated React dashboard and Python backend for student, IT support, manager and administrator workflows. The existing visual theme and layout are retained. Live mode uses authenticated server records; it does not load demo data when the server is unavailable.
+A responsive web-based platform for monitoring campus network performance, collecting network health data, managing connectivity complaints, identifying recurring network issues, and supporting IT teams in investigating and resolving network problems.
 
-## Requirements
+**Project Type:** Academic / University Software Project
+**Domain:** Campus Network Monitoring & IT Support
+**Department:** Software
 
-- Node.js 22.13 or newer and npm.
-- Python 3.12 or newer.
-- Four local terminals for the frontend, API, measurement service and worker.
+**Live Application:** https://smart-campus-network-monitoring.netlify.app/
 
-## First setup — Windows PowerShell
+---
 
-Open a terminal in the extracted `smart-campus` folder:
+## Project Participants
 
-```powershell
-npm ci
-Copy-Item .env.example .env.local
-py -3.12 -m venv backend/.venv
-backend/.venv/Scripts/python.exe -m pip install -r backend/requirements.txt
-Set-Location backend
-Copy-Item .env.example .env
-.venv/Scripts/python.exe -m alembic upgrade head
-.venv/Scripts/python.exe -m app.bootstrap --email your-admin@muet.edu.pk --campus "Mehran University of Engineering and Technology" --demo-locations
+| Name              | Roll No. |
+| ----------------- | -------- |
+| Ahmed Memon       | 24SW019  |
+| Haroon Zulfiqar   | 24SW101  |
+| Syed Sayeel Abbas | 24SW116  |
+| Rasool Bux        | 24SW134  |
+
+---
+
+## Project Overview
+
+The **Smart Campus Wi-Fi Monitoring & Network Health Dashboard** provides a centralized platform for monitoring and managing campus network performance.
+
+Campus users may experience slow internet, high latency, frequent disconnections, weak connectivity, or complete network outages. Traditional complaints often provide limited technical information, making it difficult for IT teams to determine the actual cause, scope, and severity of a problem.
+
+This system addresses that challenge by combining:
+
+* Network performance testing
+* Location-based monitoring
+* Network health scoring
+* Complaint management
+* Incident investigation
+* IT support workflows
+* Historical performance data
+* Notifications
+* Analytics and dashboards
+* Role-based access
+
+Users can test their connection at a selected campus location, view performance results, submit connectivity complaints, and track their status. IT personnel can review complaints, investigate network issues, manage assignments, record actions, and verify recovery through follow-up testing.
+
+---
+
+## Problem Statement
+
+A complaint such as:
+
+> "The Wi-Fi is very slow."
+
+does not provide enough information for effective technical investigation.
+
+IT support may need to know:
+
+* Where the problem occurred
+* Download and upload performance
+* Network latency
+* Whether other users are experiencing similar problems
+* Whether the issue is temporary or recurring
+* Whether the problem is isolated to a building or floor
+* Whether the network has recovered after intervention
+
+The system provides measurable network information and organizes complaints into a structured investigation and resolution workflow.
+
+---
+
+## Key Objectives
+
+The project aims to:
+
+* Measure network performance at monitored campus locations.
+* Record download speed, upload speed, and latency.
+* Generate an understandable network health score.
+* Maintain historical network performance information.
+* Allow users to submit connectivity complaints.
+* Provide IT personnel with technical evidence for investigation.
+* Identify recurring problems across campus locations.
+* Support complaint assignment and status tracking.
+* Verify network recovery through follow-up testing.
+* Provide dashboards and analytics for IT teams and management.
+* Notify relevant users about complaint and incident updates.
+* Apply authentication and role-based authorization.
+
+---
+
+## Key Features
+
+### Network Performance Testing
+
+Users can perform a network test from their device and view measurements such as:
+
+* Download speed
+* Upload speed
+* Application-level latency
+* Network health score
+* Test completion status
+
+Test results are associated with a location and timestamp.
+
+> **Measurement note:** Network measurements are performed between the user's device and the designated test endpoint. A backend-only measurement does not represent the user's actual Wi-Fi experience.
+
+---
+
+### Network Health Scoring
+
+The system converts available network measurements into an understandable health score.
+
+The scoring model considers:
+
+| Metric         | Weight |
+| -------------- | -----: |
+| Download Speed |    35% |
+| Upload Speed   |    20% |
+| Latency        |    30% |
+| Packet Loss    |    15% |
+
+When a measurement is unavailable, the system can calculate the score using the available metrics rather than treating the missing value as zero.
+
+### Health Categories
+
+|  Score | Status    |
+| -----: | --------- |
+| 90–100 | Excellent |
+|  75–89 | Good      |
+|  50–74 | Fair      |
+|  25–49 | Poor      |
+|   0–24 | Critical  |
+
+These thresholds can be adjusted according to campus network requirements.
+
+The system also distinguishes unavailable or outdated measurements from actual poor network conditions through states such as **Unknown**, **Stale**, **Suspected Outage**, and **Maintenance** where applicable.
+
+---
+
+## Location-Based Monitoring
+
+Network performance is associated with monitored campus locations, allowing IT teams to identify areas where connectivity problems occur repeatedly.
+
+Users can work with location information such as:
+
+* Building
+* Floor
+* Monitored location
+
+Historical test information can then be reviewed to understand network performance patterns across different areas of the campus.
+
+---
+
+## Complaint Management
+
+Users can submit network-related complaints based on their experience.
+
+### Complaint Categories
+
+* No Internet
+* Slow Internet
+* High Ping / Latency
+* Frequent Disconnection
+* Weak Signal
+* Website or Service Unavailable
+* Other
+
+Complaints can contain information such as:
+
+* User
+* Location
+* Complaint category
+* Description
+* Related test information
+* Submission time
+* Current status
+
+### Complaint Workflow
+
+```text
+Submitted
+    ↓
+Reviewed
+    ↓
+Assigned
+    ↓
+In Progress
+    ↓
+Resolved
 ```
 
-Bootstrap prompts for an administrator password of at least 10 characters. It creates the campus, initial administrator, threshold configuration, measurement endpoint and optional placeholder locations. It never creates fake measurement history. Use Locations in the administrator dashboard to replace placeholder names and place actual campus pins. The map defaults to MUET, Jamshoro; its center is not a building survey.
+Additional statuses can be used where applicable, including:
 
-If upgrading an existing backend database, back it up, configure its `DATABASE_URL`, run `alembic upgrade head`, and sign in with existing accounts. Do not bootstrap a second campus unless intended.
+* Awaiting User
+* Awaiting External Provider
+* Duplicate
+* Closed
+* Reopened
 
-## Run — separate terminals
+---
 
-All backend commands run from the `backend` folder, using the same `.env` and database:
+## Incident Detection & Investigation
 
-```powershell
-# Terminal 1: backend API
-.venv/Scripts/python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000
+A **complaint** represents an individual user's report, while an **incident** represents a potentially shared network problem affecting multiple users or a particular location.
+
+The platform can use information such as:
+
+* Recent network tests
+* Multiple complaints
+* Similar complaint categories
+* Location-based patterns
+* Existing maintenance activity
+* Historical network performance
+
+This information helps IT personnel determine whether multiple complaints may be related to a common network issue.
+
+### Incident Workflow
+
+```text
+Suspected
+    ↓
+Confirmed
+    ↓
+Investigating
+    ↓
+Monitoring Recovery
+    ↓
+Resolved
 ```
 
-```powershell
-# Terminal 2: browser measurement service
-.venv/Scripts/python.exe -m uvicorn app.measurement:app --host 127.0.0.1 --port 8001
-```
+---
 
-```powershell
-# Terminal 3: incident detection and expired-session processing
-.venv/Scripts/python.exe -m app.worker
-```
+## IT Investigation Workflow
 
-```powershell
-# Terminal 4: frontend, from the smart-campus root folder
-npm run dev
-```
+IT personnel can investigate reported network problems through a structured workflow:
 
-Open `http://127.0.0.1:5173`. The Vite development proxy forwards `/api` to port 8000 and `/measure` to port 8001. Sign in with the administrator created above. Students can create accounts through the existing sign-up page; administrators can then change their roles to IT Support or Manager in Users. If there is more than one campus, set `VITE_CAMPUS_ID` in the frontend `.env.local` to the campus ID printed by bootstrap and restart Vite.
+1. Review the reported complaint.
+2. Examine the affected location.
+3. Review recent network test results.
+4. Compare current and historical performance.
+5. Determine the potential scope of the issue.
+6. Assign the investigation where required.
+7. Record investigation notes and actions.
+8. Document the probable cause.
+9. Perform the required repair or maintenance.
+10. Conduct a verification network test.
+11. Confirm whether network performance has recovered.
+12. Resolve the related complaint or incident.
+13. Notify affected users where applicable.
 
-Swagger API documentation is available at `http://127.0.0.1:8000/docs`. Initial endpoint health is deliberately unconfirmed. After testing endpoint reachability and capacity, an administrator can enable `operator_healthy` through `PATCH /admin/endpoints/{id}` in Swagger; this is required for reliable automatic incident detection.
+This provides a traceable path from the original complaint through investigation and resolution.
 
-## What is connected
+---
 
-- Authenticated role-specific dashboards with server-enforced campus scope.
-- Real browser-to-endpoint RTT, download and upload measurements, scoring and history.
-- Complaints with map-selected locations, optional test attachments, assignment and investigation notes.
-- Manual IT complaint resolution from any status, with optional resolution notes and an audit trail.
-- Custom map locations and administrator pin/name editing.
-- Persistent maintenance notes, support activity and recurring-problem reporting.
-- Account roles, activation, role capabilities and versioned health thresholds.
-- Persistent user notifications, read state, error feedback and recorded analytics.
+## Role-Based Dashboards
 
-See [INTEGRATION.md](INTEGRATION.md) for architecture, schema changes, validation and limitations.
+The system provides different functionality according to the user's role.
 
-## Validate
+### Student / Staff
 
-```powershell
-# Project root: TypeScript and frontend production build
-npm run build
-npm test
-# backend folder: backend tests, migration drift and integration coverage
-.venv/Scripts/python.exe -m pytest tests -q
-```
+Users can:
 
-The integrated build and all 18 backend tests pass. Live browser verification used an isolated synthetic database; its users, credentials and records are not packaged.
+* Perform network tests
+* View network health results
+* View test history
+* Submit complaints
+* Track complaint status
+* View relevant notifications
 
-## Deployment and measurement limits
+### IT Staff
 
-Deploy the frontend build with a reverse proxy for `/api`, or set `VITE_API_URL` before building. The measurement endpoint returned by the API must be reachable from the user's device. Configure HTTPS, CORS origins, production secrets, PostgreSQL, backups and shared rate limiting. See [backend/docs/DEPLOYMENT.md](backend/docs/DEPLOYMENT.md).
+IT personnel can:
 
-The dashboard measures the device’s active internet connection directly against Cloudflare. Each full test transfers about 26 MiB and never proxies speed traffic through localhost. The optional canonical campus measurement API still measures its configured endpoint. HTTP tests cannot measure packet loss or Wi-Fi signal, and selecting a campus location does not prove Wi-Fi association. Campus-wide history omits user identities. The supplied backend has no email password-recovery service; the existing recovery form reports this limitation. Notifications are in-app and refresh every 30 seconds.
+* Monitor recent network tests
+* Review poor-performing locations
+* Manage complaints
+* Investigate incidents
+* Handle assigned issues
+* Review location performance
+* Record investigation and resolution information
+* Verify network recovery
 
-`VITE_USE_BACKEND=false` explicitly restores the original local demo workspace for demonstrations. It should not be enabled for live campus operations.
+### Management
 
-The ZIP excludes dependencies, virtual environments, caches, credentials and databases. Install dependencies with the commands above.
+Management can review:
 
-## Administrator AI features
+* Campus-wide network trends
+* Frequently affected locations
+* Complaint statistics
+* Incident information
+* Performance trends
+* Areas requiring further attention
 
-Set `GEMINI_API_KEY` in the private `backend/.env` file, then restart the API. The delivery contains only an empty example setting. The key must never be placed in frontend variables. `GEMINI_MODEL` defaults to `gemini-3.8-flash`; use a generateContent model available to your Google project. Provider requests have a bounded timeout.
+### Administration
 
-New complaints are classified automatically into slow internet, high latency, frequent disconnection, no internet, weak signal, service unavailable or other. Gemini suggestions with confidence at least 0.65 are applied automatically; lower-confidence suggestions remain reviewable. Administrators can classify older complaints individually, inspect the reasoning, and apply a suggested category. The original submitted category and analysis are audited, and retries do not trigger duplicate analysis.
+Administrative functionality supports system-level management such as:
 
-The AI Network Summary page generates IT observations and suggested checks for the last 24 hours, 3 days or 7 days. Only computed campus aggregates are sent for summaries; user names, emails and raw complaint text are excluded. Classification sends the complaint description after common email and phone patterns are redacted. Do not put sensitive information in complaint descriptions. Model confidence is an estimate and recommendations require IT review.
+* User and role management
+* Location management
+* Network threshold configuration
+* System monitoring
+* Administrative controls
 
-When Google is unavailable, classification provides explicitly labelled keyword suggestions and summaries provide a factual data summary. These fallbacks do not claim to be Gemini outputs. Empty periods show insufficient evidence. Analyses and the latest summary persist in the audit store; endpoints enforce administrator access and campus scope. Summary generation has a 30-second cooldown.
+---
+
+## Dashboard & Analytics
+
+The dashboard provides an overview of network performance and support activity.
+
+Information can be filtered by:
+
+* Location
+* Building
+* Date range
+* Network status
+* Complaint category
+* Complaint status
+
+Network health visualization can use states such as:
+
+* **Green** — Healthy
+* **Yellow** — Degraded
+* **Red** — Poor / Critical
+* **Gray** — Unknown / Stale
+
+---
+
+## Authentication & Authorization
+
+The application uses authenticated access and role-based permissions to separate functionality between users.
+
+Security considerations include:
+
+* Authentication
+* Role-based access control
+* Protected application routes
+* API authorization
+* Input validation
+* Secure session handling
+* Rate limiting
+* Bounded network test requests
+* Audit logging
+* Protected administrative functionality
+
+User-provided network measurements should also be validated because client-side measurements can be affected by the user's device, browser, network conditions, or manipulation.
+
+---
+
+## Notifications
+
+The system supports communication throughout the complaint a
