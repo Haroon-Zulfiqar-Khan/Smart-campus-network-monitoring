@@ -1,0 +1,33 @@
+# Hackathon deployment: one Python web service and a managed PostgreSQL database.
+services:
+  - type: web
+    name: campusnet-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m app.render_start
+    healthCheckPath: /health/ready
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.10
+      - key: ENVIRONMENT
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: campusnet-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: CORS_ORIGINS
+        value: '["https://campus-network-monitoring-system.netlify.app"]'
+      - key: INITIAL_ADMIN_EMAIL
+        sync: false
+      - key: INITIAL_ADMIN_PASSWORD
+        sync: false
+      - key: INITIAL_CAMPUS_NAME
+        value: Mehran University of Engineering and Technology
+databases:
+  - name: campusnet-db
+    plan: free
+    ipAllowList: []

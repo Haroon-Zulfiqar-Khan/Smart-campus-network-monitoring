@@ -1,0 +1,1439 @@
+[
+  {
+    "name": "campuses",
+    "columns": [
+      {
+        "name": "name",
+        "type": "string",
+        "length": 120,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "timezone",
+        "type": "string",
+        "length": 60,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": null,
+        "primary_key": true,
+        "nullable": false
+      },
+      {
+        "name": "created_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      }
+    ],
+    "unique": [],
+    "indexes": [
+      {
+        "name": "ix_campuses_created_at",
+        "columns": [
+          "created_at"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  {
+    "name": "buildings",
+    "columns": [
+      {
+        "name": "campus_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "campuses.id",
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "length": 120,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": null,
+        "primary_key": true,
+        "nullable": false
+      },
+      {
+        "name": "created_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      }
+    ],
+    "unique": [
+      [
+        "campus_id",
+        "name"
+      ]
+    ],
+    "indexes": [
+      {
+        "name": "ix_buildings_created_at",
+        "columns": [
+          "created_at"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_buildings_campus_id",
+        "columns": [
+          "campus_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  {
+    "name": "endpoints",
+    "columns": [
+      {
+        "name": "campus_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "campuses.id",
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "length": 100,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "base_url",
+        "type": "string",
+        "length": 500,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "scope",
+        "type": "string",
+        "length": 20,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "is_active",
+        "type": "boolean",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "operator_healthy",
+        "type": "boolean",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "last_seen_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": null,
+        "primary_key": true,
+        "nullable": false
+      },
+      {
+        "name": "created_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      }
+    ],
+    "unique": [],
+    "indexes": [
+      {
+        "name": "ix_endpoints_created_at",
+        "columns": [
+          "created_at"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_endpoints_campus_id",
+        "columns": [
+          "campus_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  {
+    "name": "thresholds",
+    "columns": [
+      {
+        "name": "campus_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "campuses.id",
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "version",
+        "type": "integer",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "config",
+        "type": "json",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": null,
+        "primary_key": true,
+        "nullable": false
+      },
+      {
+        "name": "created_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      }
+    ],
+    "unique": [
+      [
+        "campus_id",
+        "version"
+      ]
+    ],
+    "indexes": [
+      {
+        "name": "ix_thresholds_campus_id",
+        "columns": [
+          "campus_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_thresholds_created_at",
+        "columns": [
+          "created_at"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  {
+    "name": "users",
+    "columns": [
+      {
+        "name": "name",
+        "type": "string",
+        "length": 100,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "length": 254,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "password_hash",
+        "type": "text",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "role",
+        "type": "string",
+        "length": 20,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "campus_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "campuses.id",
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "is_active",
+        "type": "boolean",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": null,
+        "primary_key": true,
+        "nullable": false
+      },
+      {
+        "name": "created_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      }
+    ],
+    "unique": [],
+    "indexes": [
+      {
+        "name": "ix_users_email",
+        "columns": [
+          "email"
+        ],
+        "unique": true
+      },
+      {
+        "name": "ix_users_created_at",
+        "columns": [
+          "created_at"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_users_campus_id",
+        "columns": [
+          "campus_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  {
+    "name": "audit_events",
+    "columns": [
+      {
+        "name": "actor_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "users.id",
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "action",
+        "type": "string",
+        "length": 100,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "entity_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "details",
+        "type": "json",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": null,
+        "primary_key": true,
+        "nullable": false
+      },
+      {
+        "name": "created_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      }
+    ],
+    "unique": [],
+    "indexes": [
+      {
+        "name": "ix_audit_events_created_at",
+        "columns": [
+          "created_at"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  {
+    "name": "locations",
+    "columns": [
+      {
+        "name": "building_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "buildings.id",
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "length": 120,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "floor",
+        "type": "string",
+        "length": 40,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "map_x",
+        "type": "float",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "map_y",
+        "type": "float",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "is_active",
+        "type": "boolean",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": null,
+        "primary_key": true,
+        "nullable": false
+      },
+      {
+        "name": "created_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      }
+    ],
+    "unique": [
+      [
+        "building_id",
+        "floor",
+        "name"
+      ]
+    ],
+    "indexes": [
+      {
+        "name": "ix_locations_building_id",
+        "columns": [
+          "building_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_locations_created_at",
+        "columns": [
+          "created_at"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  {
+    "name": "login_sessions",
+    "columns": [
+      {
+        "name": "user_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "users.id",
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "refresh_hash",
+        "type": "string",
+        "length": 64,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "expires_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "revoked",
+        "type": "boolean",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": null,
+        "primary_key": true,
+        "nullable": false
+      },
+      {
+        "name": "created_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      }
+    ],
+    "unique": [
+      [
+        "refresh_hash"
+      ]
+    ],
+    "indexes": [
+      {
+        "name": "ix_login_sessions_user_id",
+        "columns": [
+          "user_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_login_sessions_created_at",
+        "columns": [
+          "created_at"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  {
+    "name": "notifications",
+    "columns": [
+      {
+        "name": "user_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "users.id",
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "event_key",
+        "type": "string",
+        "length": 180,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "length": 180,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "message",
+        "type": "text",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "is_read",
+        "type": "boolean",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "channel",
+        "type": "string",
+        "length": 20,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "delivery_state",
+        "type": "string",
+        "length": 20,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": null,
+        "primary_key": true,
+        "nullable": false
+      },
+      {
+        "name": "created_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      }
+    ],
+    "unique": [
+      [
+        "user_id",
+        "event_key"
+      ]
+    ],
+    "indexes": [
+      {
+        "name": "ix_notifications_user_id",
+        "columns": [
+          "user_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_notifications_created_at",
+        "columns": [
+          "created_at"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  {
+    "name": "incidents",
+    "columns": [
+      {
+        "name": "location_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "locations.id",
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "active_key",
+        "type": "string",
+        "length": 36,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "length": 30,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "severity",
+        "type": "string",
+        "length": 20,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "owner_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "users.id",
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "evidence",
+        "type": "json",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "root_cause",
+        "type": "text",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "action_taken",
+        "type": "text",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "resolution_note",
+        "type": "text",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "resolved_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": null,
+        "primary_key": true,
+        "nullable": false
+      },
+      {
+        "name": "created_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      }
+    ],
+    "unique": [
+      [
+        "active_key"
+      ]
+    ],
+    "indexes": [
+      {
+        "name": "ix_incidents_location_id",
+        "columns": [
+          "location_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_incidents_created_at",
+        "columns": [
+          "created_at"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  {
+    "name": "maintenance",
+    "columns": [
+      {
+        "name": "location_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "locations.id",
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "owner_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "users.id",
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "starts_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "ends_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "cancelled",
+        "type": "boolean",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": null,
+        "primary_key": true,
+        "nullable": false
+      },
+      {
+        "name": "created_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      }
+    ],
+    "unique": [],
+    "indexes": [
+      {
+        "name": "ix_maintenance_created_at",
+        "columns": [
+          "created_at"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_maintenance_location_id",
+        "columns": [
+          "location_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  {
+    "name": "test_attempts",
+    "columns": [
+      {
+        "name": "user_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "users.id",
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "location_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "locations.id",
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "endpoint_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "endpoints.id",
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "submission_id",
+        "type": "string",
+        "length": 100,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "length": 20,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "expires_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "finished_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "reason",
+        "type": "string",
+        "length": 500,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "transfer_bytes",
+        "type": "integer",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "upload_confirmed_bytes",
+        "type": "integer",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": null,
+        "primary_key": true,
+        "nullable": false
+      },
+      {
+        "name": "created_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      }
+    ],
+    "unique": [
+      [
+        "user_id",
+        "submission_id"
+      ]
+    ],
+    "indexes": [
+      {
+        "name": "ix_test_attempts_location_id",
+        "columns": [
+          "location_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_test_attempts_created_at",
+        "columns": [
+          "created_at"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_test_attempts_user_id",
+        "columns": [
+          "user_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  {
+    "name": "complaints",
+    "columns": [
+      {
+        "name": "user_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "users.id",
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "location_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "locations.id",
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "submission_id",
+        "type": "string",
+        "length": 100,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "reference",
+        "type": "string",
+        "length": 30,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "category",
+        "type": "string",
+        "length": 50,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "occurred_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "test_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "test_attempts.id",
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "length": 30,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "assignee_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "users.id",
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "incident_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "incidents.id",
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "resolved_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": null,
+        "primary_key": true,
+        "nullable": false
+      },
+      {
+        "name": "created_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      }
+    ],
+    "unique": [
+      [
+        "reference"
+      ],
+      [
+        "user_id",
+        "submission_id"
+      ]
+    ],
+    "indexes": [
+      {
+        "name": "ix_complaints_location_id",
+        "columns": [
+          "location_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_complaints_category",
+        "columns": [
+          "category"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_complaints_user_id",
+        "columns": [
+          "user_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_complaints_created_at",
+        "columns": [
+          "created_at"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_complaints_status",
+        "columns": [
+          "status"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  {
+    "name": "test_results",
+    "columns": [
+      {
+        "name": "attempt_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "test_attempts.id",
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "download_mbps",
+        "type": "float",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "upload_mbps",
+        "type": "float",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "latency_ms",
+        "type": "float",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "jitter_ms",
+        "type": "float",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "packet_loss_pct",
+        "type": "float",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "score",
+        "type": "float",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "health",
+        "type": "string",
+        "length": 30,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "explanation",
+        "type": "json",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "threshold_version",
+        "type": "integer",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "measurement_method",
+        "type": "string",
+        "length": 100,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "trust",
+        "type": "string",
+        "length": 50,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": null,
+        "primary_key": true,
+        "nullable": false
+      },
+      {
+        "name": "created_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      }
+    ],
+    "unique": [
+      [
+        "attempt_id"
+      ]
+    ],
+    "indexes": [
+      {
+        "name": "ix_test_results_created_at",
+        "columns": [
+          "created_at"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  {
+    "name": "timeline_events",
+    "columns": [
+      {
+        "name": "complaint_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "complaints.id",
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "incident_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "incidents.id",
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "actor_id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": "users.id",
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "old_status",
+        "type": "string",
+        "length": 30,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "new_status",
+        "type": "string",
+        "length": 30,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": true
+      },
+      {
+        "name": "note",
+        "type": "text",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "visibility",
+        "type": "string",
+        "length": 20,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "evidence",
+        "type": "json",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "length": 36,
+        "foreign_key": null,
+        "primary_key": true,
+        "nullable": false
+      },
+      {
+        "name": "created_at",
+        "type": "datetime",
+        "length": null,
+        "foreign_key": null,
+        "primary_key": false,
+        "nullable": false
+      }
+    ],
+    "unique": [],
+    "indexes": [
+      {
+        "name": "ix_timeline_events_incident_id",
+        "columns": [
+          "incident_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_timeline_events_complaint_id",
+        "columns": [
+          "complaint_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_timeline_events_created_at",
+        "columns": [
+          "created_at"
+        ],
+        "unique": false
+      }
+    ]
+  }
+]

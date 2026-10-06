@@ -1,0 +1,60 @@
+# Local PostgreSQL deployment. Configure HTTPS ingress before ENVIRONMENT=production.
+x-backend: &backend
+  build: .
+  env_file: .env
+  environment:
+    DATABASE_URL: postgresql+psycopg://campus:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@db:5432/campus
+  restart: unless-stopped
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: campus
+      POSTGRES_USER: campus
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      - campus_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U campus -d campus"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+  migrate:
+    <<: *backend
+    command: ["python", "-m", "alembic", "upgrade", "head"]
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+  api:
+    <<: *backend
+    ports: ["8000:8000"]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/ready')"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+  measurement:
+    <<: *backend
+    command: ["python", "-m", "uvicorn", "app.measurement:app", "--host", "0.0.0.0", "--port", "8001"]
+    ports: ["8001:8001"]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8001/health/live')"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+  worker:
+    <<: *backend
+    command: ["python", "-m", "app.worker"]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+volumes:
+  campus_data:

@@ -1,0 +1,678 @@
+{
+  "notice": "SYNTHETIC fixture responses; UUIDs and tokens must be replaced with runtime values.",
+  "examples": {
+    "login_response": {
+      "user": {
+        "name": "alice",
+        "email": "alice@campus.edu",
+        "role": "student",
+        "campus_id": "41dd83e0-6ada-4444-9ff8-e479259d3950",
+        "is_active": true,
+        "id": "7da27d8c-6fdd-4665-8075-e86f1993dbec",
+        "created_at": "2026-10-01T06:02:58.522978Z"
+      },
+      "access_token": "<access_token>",
+      "refresh_token": "<refresh_token>",
+      "token_type": "bearer",
+      "expires_in": 1800
+    },
+    "campuses_response": [
+      {
+        "name": "Other Campus",
+        "timezone": "Asia/Karachi",
+        "id": "5566c612-be5a-4a40-9146-b51fc21922f6",
+        "created_at": "2026-10-01T06:02:58.175614Z"
+      },
+      {
+        "name": "Test Campus",
+        "timezone": "Asia/Karachi",
+        "id": "41dd83e0-6ada-4444-9ff8-e479259d3950",
+        "created_at": "2026-10-01T06:02:58.175596Z"
+      }
+    ],
+    "endpoints_response": [
+      {
+        "campus_id": "41dd83e0-6ada-4444-9ff8-e479259d3950",
+        "name": "Local test endpoint",
+        "base_url": "http://testserver/measure",
+        "scope": "campus",
+        "is_active": true,
+        "operator_healthy": true,
+        "last_seen_at": null,
+        "id": "f0c4ab57-051f-4122-91bf-58a0d1ec05c4",
+        "created_at": "2026-10-01T06:02:58.678868Z"
+      }
+    ],
+    "start_test_response": {
+      "user_id": "7da27d8c-6fdd-4665-8075-e86f1993dbec",
+      "location_id": "94e38feb-b3d8-4066-a726-ddcf0ce5a62d",
+      "endpoint_id": "f0c4ab57-051f-4122-91bf-58a0d1ec05c4",
+      "submission_id": "example-session-0001",
+      "status": "created",
+      "expires_at": "2026-10-01T06:12:59.137947Z",
+      "finished_at": null,
+      "reason": null,
+      "transfer_bytes": 0,
+      "upload_confirmed_bytes": 0,
+      "id": "97dc8e79-58db-41d4-978a-2fdbe5ab7063",
+      "created_at": "2026-10-01T06:02:59.138636Z",
+      "measurement_token": "<measurement_token>",
+      "base_url": "http://testserver/measure",
+      "limits": {
+        "download_bytes": 8388608,
+        "upload_bytes": 8388608,
+        "session_bytes": 67108864
+      },
+      "notice": "Measures this device to the selected endpoint. Location and metrics are user-reported. HTTP latency is application RTT; packet loss is not measured."
+    },
+    "completed_test_response": {
+      "attempt": {
+        "user_id": "7da27d8c-6fdd-4665-8075-e86f1993dbec",
+        "location_id": "94e38feb-b3d8-4066-a726-ddcf0ce5a62d",
+        "endpoint_id": "f0c4ab57-051f-4122-91bf-58a0d1ec05c4",
+        "submission_id": "example-completed-0001",
+        "status": "completed",
+        "expires_at": "2026-10-01T06:12:59.144350Z",
+        "finished_at": "2026-10-01T06:02:59.168562Z",
+        "reason": null,
+        "transfer_bytes": 2048,
+        "upload_confirmed_bytes": 1024,
+        "id": "f4a6461b-d88f-48aa-9770-e5cc735eefe5",
+        "created_at": "2026-10-01T06:02:59.144555Z"
+      },
+      "result": {
+        "attempt_id": "f4a6461b-d88f-48aa-9770-e5cc735eefe5",
+        "download_mbps": 100.0,
+        "upload_mbps": 30.0,
+        "latency_ms": 15.0,
+        "jitter_ms": null,
+        "packet_loss_pct": null,
+        "score": 100.0,
+        "health": "excellent",
+        "explanation": {
+          "subscores": {
+            "download_mbps": 100,
+            "upload_mbps": 100,
+            "latency_ms": 100
+          },
+          "measurement_coverage": 1.0,
+          "missing": [
+            "packet_loss_pct"
+          ],
+          "reasons": [
+            "Measured metrics meet configured targets"
+          ],
+          "packet_loss": "not_measured",
+          "latency_method": "application RTT",
+          "formula": "Weighted mean of available metric subscores; missing weights renormalized"
+        },
+        "threshold_version": 1,
+        "measurement_method": "browser_http_application_rtt",
+        "trust": "client_reported_location_and_metrics",
+        "id": "142de09c-0132-4b71-8465-89fe1a958291",
+        "created_at": "2026-10-01T06:02:59.170691Z"
+      },
+      "duplicate": false
+    },
+    "create_complaint_request": {
+      "location_id": "94e38feb-b3d8-4066-a726-ddcf0ce5a62d",
+      "category": "slow_internet",
+      "description": "SYNTHETIC DEMO: slow performance in this room.",
+      "submission_id": "example-complaint-0001",
+      "test_id": "f4a6461b-d88f-48aa-9770-e5cc735eefe5"
+    },
+    "create_complaint_response": {
+      "user_id": "7da27d8c-6fdd-4665-8075-e86f1993dbec",
+      "location_id": "94e38feb-b3d8-4066-a726-ddcf0ce5a62d",
+      "submission_id": "example-complaint-0001",
+      "reference": "CMP-007FD0F151F5",
+      "category": "slow_internet",
+      "description": "SYNTHETIC DEMO: slow performance in this room.",
+      "occurred_at": null,
+      "test_id": "f4a6461b-d88f-48aa-9770-e5cc735eefe5",
+      "status": "submitted",
+      "assignee_id": null,
+      "incident_id": null,
+      "resolved_at": null,
+      "id": "a4aadd31-a840-49e0-a8f6-dc7c171305db",
+      "created_at": "2026-10-01T06:02:59.200908Z",
+      "duplicate": false
+    },
+    "resolve_complaint_request": {
+      "status": "resolved",
+      "note": "SYNTHETIC DEMO: healthy recovery test verified.",
+      "verification_test_ids": [
+        "fad87962-2499-4ea1-90df-3e8c3555aab5"
+      ]
+    },
+    "complaint_detail_response": {
+      "user_id": "7da27d8c-6fdd-4665-8075-e86f1993dbec",
+      "location_id": "94e38feb-b3d8-4066-a726-ddcf0ce5a62d",
+      "submission_id": "example-complaint-0001",
+      "reference": "CMP-007FD0F151F5",
+      "category": "slow_internet",
+      "description": "SYNTHETIC DEMO: slow performance in this room.",
+      "occurred_at": null,
+      "test_id": "f4a6461b-d88f-48aa-9770-e5cc735eefe5",
+      "status": "resolved",
+      "assignee_id": "d584f590-1fbb-4303-afdb-1c2e09862726",
+      "incident_id": null,
+      "resolved_at": "2026-10-01T06:02:59.275681Z",
+      "id": "a4aadd31-a840-49e0-a8f6-dc7c171305db",
+      "created_at": "2026-10-01T06:02:59.200908Z",
+      "events": [
+        {
+          "complaint_id": "a4aadd31-a840-49e0-a8f6-dc7c171305db",
+          "incident_id": null,
+          "actor_id": "7da27d8c-6fdd-4665-8075-e86f1993dbec",
+          "old_status": null,
+          "new_status": "submitted",
+          "note": "Complaint received",
+          "visibility": "public",
+          "evidence": {},
+          "id": "662fe893-84c4-4985-bbd8-476559c91505",
+          "created_at": "2026-10-01T06:02:59.201755Z"
+        },
+        {
+          "complaint_id": "a4aadd31-a840-49e0-a8f6-dc7c171305db",
+          "incident_id": null,
+          "actor_id": "d584f590-1fbb-4303-afdb-1c2e09862726",
+          "old_status": "submitted",
+          "new_status": "reviewed",
+          "note": "Reviewing the reported issue",
+          "visibility": "public",
+          "evidence": {},
+          "id": "d42fb4c6-72af-45ee-b4c1-d815d2e963b3",
+          "created_at": "2026-10-01T06:02:59.216561Z"
+        },
+        {
+          "complaint_id": "a4aadd31-a840-49e0-a8f6-dc7c171305db",
+          "incident_id": null,
+          "actor_id": "d584f590-1fbb-4303-afdb-1c2e09862726",
+          "old_status": "reviewed",
+          "new_status": "assigned",
+          "note": "Assigned to support",
+          "visibility": "public",
+          "evidence": {},
+          "id": "85209ca6-dba8-47bd-89d8-6b11063f9be8",
+          "created_at": "2026-10-01T06:02:59.223567Z"
+        },
+        {
+          "complaint_id": "a4aadd31-a840-49e0-a8f6-dc7c171305db",
+          "incident_id": null,
+          "actor_id": "d584f590-1fbb-4303-afdb-1c2e09862726",
+          "old_status": "assigned",
+          "new_status": "in_progress",
+          "note": "Checking connectivity and configuration",
+          "visibility": "public",
+          "evidence": {},
+          "id": "8035ad09-edc2-4217-9d2f-b28aa3ea6f0b",
+          "created_at": "2026-10-01T06:02:59.233344Z"
+        },
+        {
+          "complaint_id": "a4aadd31-a840-49e0-a8f6-dc7c171305db",
+          "incident_id": null,
+          "actor_id": "d584f590-1fbb-4303-afdb-1c2e09862726",
+          "old_status": "in_progress",
+          "new_status": "resolved",
+          "note": "SYNTHETIC DEMO: healthy recovery test verified.",
+          "visibility": "public",
+          "evidence": {
+            "test_ids": [
+              "fad87962-2499-4ea1-90df-3e8c3555aab5"
+            ],
+            "independent_users": 1,
+            "minimum_score": 75
+          },
+          "id": "113133fe-ef7f-4f3b-8bdd-be40305f4f31",
+          "created_at": "2026-10-01T06:02:59.276314Z"
+        }
+      ]
+    },
+    "test_history_response": {
+      "items": [
+        {
+          "attempt": {
+            "user_id": "7da27d8c-6fdd-4665-8075-e86f1993dbec",
+            "location_id": "94e38feb-b3d8-4066-a726-ddcf0ce5a62d",
+            "endpoint_id": "f0c4ab57-051f-4122-91bf-58a0d1ec05c4",
+            "submission_id": "example-verification-0001",
+            "status": "completed",
+            "expires_at": "2026-10-01T06:12:59.241331Z",
+            "finished_at": "2026-10-01T06:02:59.261271Z",
+            "reason": null,
+            "transfer_bytes": 2048,
+            "upload_confirmed_bytes": 1024,
+            "id": "fad87962-2499-4ea1-90df-3e8c3555aab5",
+            "created_at": "2026-10-01T06:02:59.241516Z"
+          },
+          "result": {
+            "attempt_id": "fad87962-2499-4ea1-90df-3e8c3555aab5",
+            "download_mbps": 100.0,
+            "upload_mbps": 30.0,
+            "latency_ms": 15.0,
+            "jitter_ms": null,
+            "packet_loss_pct": null,
+            "score": 100.0,
+            "health": "excellent",
+            "explanation": {
+              "subscores": {
+                "download_mbps": 100,
+                "upload_mbps": 100,
+                "latency_ms": 100
+              },
+              "measurement_coverage": 1.0,
+              "missing": [
+                "packet_loss_pct"
+              ],
+              "reasons": [
+                "Measured metrics meet configured targets"
+              ],
+              "packet_loss": "not_measured",
+              "latency_method": "application RTT",
+              "formula": "Weighted mean of available metric subscores; missing weights renormalized"
+            },
+            "threshold_version": 1,
+            "measurement_method": "browser_http_application_rtt",
+            "trust": "client_reported_location_and_metrics",
+            "id": "556b32af-cf7c-4a0f-a290-386b6694e183",
+            "created_at": "2026-10-01T06:02:59.262050Z"
+          }
+        },
+        {
+          "attempt": {
+            "user_id": "7da27d8c-6fdd-4665-8075-e86f1993dbec",
+            "location_id": "94e38feb-b3d8-4066-a726-ddcf0ce5a62d",
+            "endpoint_id": "f0c4ab57-051f-4122-91bf-58a0d1ec05c4",
+            "submission_id": "example-completed-0001",
+            "status": "completed",
+            "expires_at": "2026-10-01T06:12:59.144350Z",
+            "finished_at": "2026-10-01T06:02:59.168562Z",
+            "reason": null,
+            "transfer_bytes": 2048,
+            "upload_confirmed_bytes": 1024,
+            "id": "f4a6461b-d88f-48aa-9770-e5cc735eefe5",
+            "created_at": "2026-10-01T06:02:59.144555Z"
+          },
+          "result": {
+            "attempt_id": "f4a6461b-d88f-48aa-9770-e5cc735eefe5",
+            "download_mbps": 100.0,
+            "upload_mbps": 30.0,
+            "latency_ms": 15.0,
+            "jitter_ms": null,
+            "packet_loss_pct": null,
+            "score": 100.0,
+            "health": "excellent",
+            "explanation": {
+              "subscores": {
+                "download_mbps": 100,
+                "upload_mbps": 100,
+                "latency_ms": 100
+              },
+              "measurement_coverage": 1.0,
+              "missing": [
+                "packet_loss_pct"
+              ],
+              "reasons": [
+                "Measured metrics meet configured targets"
+              ],
+              "packet_loss": "not_measured",
+              "latency_method": "application RTT",
+              "formula": "Weighted mean of available metric subscores; missing weights renormalized"
+            },
+            "threshold_version": 1,
+            "measurement_method": "browser_http_application_rtt",
+            "trust": "client_reported_location_and_metrics",
+            "id": "142de09c-0132-4b71-8465-89fe1a958291",
+            "created_at": "2026-10-01T06:02:59.170691Z"
+          }
+        },
+        {
+          "attempt": {
+            "user_id": "7da27d8c-6fdd-4665-8075-e86f1993dbec",
+            "location_id": "94e38feb-b3d8-4066-a726-ddcf0ce5a62d",
+            "endpoint_id": "f0c4ab57-051f-4122-91bf-58a0d1ec05c4",
+            "submission_id": "example-session-0001",
+            "status": "cancelled",
+            "expires_at": "2026-10-01T06:12:59.137947Z",
+            "finished_at": "2026-10-01T06:02:59.183934Z",
+            "reason": "Synthetic example cancellation",
+            "transfer_bytes": 0,
+            "upload_confirmed_bytes": 0,
+            "id": "97dc8e79-58db-41d4-978a-2fdbe5ab7063",
+            "created_at": "2026-10-01T06:02:59.138636Z"
+          },
+          "result": null
+        }
+      ],
+      "total": 3,
+      "limit": 50,
+      "offset": 0
+    },
+    "locations_response": {
+      "items": [
+        {
+          "building_id": "75eeb0d4-5f1a-436f-a470-c5c4e7b281f9",
+          "name": "Reading Room",
+          "floor": "Ground",
+          "description": "",
+          "map_x": null,
+          "map_y": null,
+          "is_active": true,
+          "id": "94e38feb-b3d8-4066-a726-ddcf0ce5a62d",
+          "created_at": "2026-10-01T06:02:58.679545Z",
+          "operational_status": "low_confidence",
+          "health": "excellent",
+          "score": 100.0,
+          "sample_count": 2,
+          "independent_users": 1,
+          "scored_users": 1,
+          "confidence": "low",
+          "window_minutes": 60,
+          "last_updated": "2026-10-01T06:02:59.261271Z",
+          "latest_result": {
+            "attempt_id": "fad87962-2499-4ea1-90df-3e8c3555aab5",
+            "download_mbps": 100.0,
+            "upload_mbps": 30.0,
+            "latency_ms": 15.0,
+            "jitter_ms": null,
+            "packet_loss_pct": null,
+            "score": 100.0,
+            "health": "excellent",
+            "explanation": {
+              "subscores": {
+                "download_mbps": 100,
+                "upload_mbps": 100,
+                "latency_ms": 100
+              },
+              "measurement_coverage": 1.0,
+              "missing": [
+                "packet_loss_pct"
+              ],
+              "reasons": [
+                "Measured metrics meet configured targets"
+              ],
+              "packet_loss": "not_measured",
+              "latency_method": "application RTT",
+              "formula": "Weighted mean of available metric subscores; missing weights renormalized"
+            },
+            "threshold_version": 1,
+            "measurement_method": "browser_http_application_rtt",
+            "trust": "client_reported_location_and_metrics",
+            "id": "556b32af-cf7c-4a0f-a290-386b6694e183",
+            "created_at": "2026-10-01T06:02:59.262050Z"
+          },
+          "metrics": {
+            "download_mbps": {
+              "average": 100.0,
+              "median": 100.0
+            },
+            "upload_mbps": {
+              "average": 30.0,
+              "median": 30.0
+            },
+            "latency_ms": {
+              "average": 15.0,
+              "median": 15.0
+            }
+          },
+          "incident_id": null
+        }
+      ],
+      "total": 1,
+      "limit": 100,
+      "offset": 0
+    },
+    "dashboard_response": {
+      "counts": {
+        "tests_today": 3,
+        "tests_in_range": 3,
+        "poor_locations": 0,
+        "open_complaints": 0,
+        "resolved_complaints": 1,
+        "active_incidents": 0,
+        "confirmed_outages": 0
+      },
+      "metrics": {
+        "average_download_mbps": 100.0,
+        "average_upload_mbps": 30.0,
+        "average_latency_ms": 15.0,
+        "average_score": 100.0
+      },
+      "today_metrics": {
+        "average_download_mbps": 100.0,
+        "average_upload_mbps": 30.0,
+        "average_latency_ms": 15.0,
+        "average_score": 100.0
+      },
+      "locations": [
+        {
+          "building_id": "75eeb0d4-5f1a-436f-a470-c5c4e7b281f9",
+          "name": "Reading Room",
+          "floor": "Ground",
+          "description": "",
+          "map_x": null,
+          "map_y": null,
+          "is_active": true,
+          "id": "94e38feb-b3d8-4066-a726-ddcf0ce5a62d",
+          "created_at": "2026-10-01T06:02:58.679545Z",
+          "operational_status": "low_confidence",
+          "health": "excellent",
+          "score": 100.0,
+          "sample_count": 2,
+          "independent_users": 1,
+          "scored_users": 1,
+          "confidence": "low",
+          "window_minutes": 60,
+          "last_updated": "2026-10-01T06:02:59.261271Z",
+          "latest_result": {
+            "attempt_id": "fad87962-2499-4ea1-90df-3e8c3555aab5",
+            "download_mbps": 100.0,
+            "upload_mbps": 30.0,
+            "latency_ms": 15.0,
+            "jitter_ms": null,
+            "packet_loss_pct": null,
+            "score": 100.0,
+            "health": "excellent",
+            "explanation": {
+              "subscores": {
+                "download_mbps": 100,
+                "upload_mbps": 100,
+                "latency_ms": 100
+              },
+              "measurement_coverage": 1.0,
+              "missing": [
+                "packet_loss_pct"
+              ],
+              "reasons": [
+                "Measured metrics meet configured targets"
+              ],
+              "packet_loss": "not_measured",
+              "latency_method": "application RTT",
+              "formula": "Weighted mean of available metric subscores; missing weights renormalized"
+            },
+            "threshold_version": 1,
+            "measurement_method": "browser_http_application_rtt",
+            "trust": "client_reported_location_and_metrics",
+            "id": "556b32af-cf7c-4a0f-a290-386b6694e183",
+            "created_at": "2026-10-01T06:02:59.262050Z"
+          },
+          "metrics": {
+            "download_mbps": {
+              "average": 100.0,
+              "median": 100.0
+            },
+            "upload_mbps": {
+              "average": 30.0,
+              "median": 30.0
+            },
+            "latency_ms": {
+              "average": 15.0,
+              "median": 15.0
+            }
+          },
+          "incident_id": null,
+          "tests_in_range": 3,
+          "complaints_in_range": 1
+        }
+      ],
+      "personal": {
+        "tests": 0,
+        "open_complaints": 0
+      },
+      "timezone": "Asia/Karachi",
+      "as_of": "2026-10-01T06:02:59.374302Z",
+      "notes": [
+        "Location health uses recent independent-user samples; counts and metric averages use the requested date range.",
+        "Unknown and stale observations are not evidence of healthy service."
+      ]
+    },
+    "analytics_response": {
+      "hourly": [
+        {
+          "period": "2026-10-01T11:00+0500",
+          "samples": 2,
+          "average_download_mbps": 100.0,
+          "average_upload_mbps": 30.0,
+          "average_latency_ms": 15.0,
+          "average_score": 100.0
+        }
+      ],
+      "daily": [
+        {
+          "period": "2026-10-01",
+          "samples": 2,
+          "average_download_mbps": 100.0,
+          "average_upload_mbps": 30.0,
+          "average_latency_ms": 15.0,
+          "average_score": 100.0
+        }
+      ],
+      "buildings": [
+        {
+          "building_id": "75eeb0d4-5f1a-436f-a470-c5c4e7b281f9",
+          "name": "Library",
+          "tests": 3,
+          "complaints": 1,
+          "average_download_mbps": 100.0,
+          "average_upload_mbps": 30.0,
+          "average_latency_ms": 15.0,
+          "average_score": 100.0
+        }
+      ],
+      "complaints_by_category": {
+        "slow_internet": 1
+      },
+      "complaints_by_status": {
+        "resolved": 1
+      },
+      "average_resolution_minutes": 0.0,
+      "staff_workload": [],
+      "problem_locations": [
+        {
+          "location_id": "94e38feb-b3d8-4066-a726-ddcf0ce5a62d",
+          "name": "Reading Room",
+          "complaints": 1,
+          "score": 100.0,
+          "priority": 5.0,
+          "recommendation": "Review endpoint health, repeat measurements and investigate recurring symptoms with IT."
+        }
+      ],
+      "trends": [],
+      "timezone": "Asia/Karachi",
+      "summary": "3 test attempts, 1 complaints and 0 active incidents match these filters.",
+      "limitations": "Rule-based insights on sampled observations. No traffic telemetry, machine-learning prediction or verified network utilization."
+    },
+    "notifications_response": {
+      "items": [
+        {
+          "user_id": "7da27d8c-6fdd-4665-8075-e86f1993dbec",
+          "event_key": "complaint:a4aadd31-a840-49e0-a8f6-dc7c171305db:113133fe-ef7f-4f3b-8bdd-be40305f4f31",
+          "title": "Complaint update",
+          "message": "CMP-007FD0F151F5: SYNTHETIC DEMO: healthy recovery test verified.",
+          "is_read": false,
+          "channel": "in_app",
+          "delivery_state": "available",
+          "id": "204d1876-b572-4a84-9ba8-502ef5d9ca61",
+          "created_at": "2026-10-01T06:02:59.277570Z"
+        },
+        {
+          "user_id": "7da27d8c-6fdd-4665-8075-e86f1993dbec",
+          "event_key": "complaint:a4aadd31-a840-49e0-a8f6-dc7c171305db:8035ad09-edc2-4217-9d2f-b28aa3ea6f0b",
+          "title": "Complaint update",
+          "message": "CMP-007FD0F151F5: Checking connectivity and configuration",
+          "is_read": false,
+          "channel": "in_app",
+          "delivery_state": "available",
+          "id": "054f8e3a-86e3-463c-8b7a-62a190d5cb4a",
+          "created_at": "2026-10-01T06:02:59.235025Z"
+        },
+        {
+          "user_id": "7da27d8c-6fdd-4665-8075-e86f1993dbec",
+          "event_key": "complaint:a4aadd31-a840-49e0-a8f6-dc7c171305db:85209ca6-dba8-47bd-89d8-6b11063f9be8",
+          "title": "Complaint update",
+          "message": "CMP-007FD0F151F5: Assigned to support",
+          "is_read": false,
+          "channel": "in_app",
+          "delivery_state": "available",
+          "id": "f5fd7924-3423-4060-b6f0-c833f2cd7084",
+          "created_at": "2026-10-01T06:02:59.225066Z"
+        },
+        {
+          "user_id": "7da27d8c-6fdd-4665-8075-e86f1993dbec",
+          "event_key": "complaint:a4aadd31-a840-49e0-a8f6-dc7c171305db:d42fb4c6-72af-45ee-b4c1-d815d2e963b3",
+          "title": "Complaint update",
+          "message": "CMP-007FD0F151F5: Reviewing the reported issue",
+          "is_read": false,
+          "channel": "in_app",
+          "delivery_state": "available",
+          "id": "024738fd-5952-41c7-9bb6-be94bd2e02ed",
+          "created_at": "2026-10-01T06:02:59.217906Z"
+        },
+        {
+          "user_id": "7da27d8c-6fdd-4665-8075-e86f1993dbec",
+          "event_key": "complaint:a4aadd31-a840-49e0-a8f6-dc7c171305db:662fe893-84c4-4985-bbd8-476559c91505",
+          "title": "Complaint update",
+          "message": "CMP-007FD0F151F5: Complaint received",
+          "is_read": false,
+          "channel": "in_app",
+          "delivery_state": "available",
+          "id": "a8629195-bd73-4347-8428-cf17f1927e1f",
+          "created_at": "2026-10-01T06:02:59.204472Z"
+        }
+      ],
+      "total": 5,
+      "limit": 50,
+      "offset": 0
+    },
+    "permission_error_response": {
+      "error": {
+        "code": "403",
+        "message": "Permission denied"
+      }
+    },
+    "threshold_response": {
+      "campus_id": "41dd83e0-6ada-4444-9ff8-e479259d3950",
+      "version": 1,
+      "config": {
+        "download_target": 100,
+        "upload_target": 30,
+        "latency_good": 20,
+        "latency_bad": 300,
+        "weights": {
+          "download_mbps": 0.35,
+          "upload_mbps": 0.2,
+          "latency_ms": 0.3
+        },
+        "window_minutes": 60,
+        "stale_minutes": 180,
+        "minimum_users": 3,
+        "incident_score": 50,
+        "recovery_score": 75,
+        "recovery_users": 2
+      },
+      "id": "25d525d8-182f-481f-be5e-d6a854d9c4ba",
+      "created_at": "2026-10-01T06:02:58.680090Z"
+    }
+  }
+}
